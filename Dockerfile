@@ -1,6 +1,12 @@
-FROM debian:wheezy
+FROM alpine:latest
+MAINTAINER derflocki
 
-RUN apt-get update && apt-get upgrade && apt-get install -y minidlna
-ADD ./run.sh /run.sh
+RUN apk --no-cache add minidlna
 
-ENTRYPOINT ["/run.sh"]
+COPY entrypoint.sh /entrypoint.sh
+
+VOLUME /config
+
+EXPOSE 8200 1900/udp
+
+ENTRYPOINT ["/entrypoint.sh"]
