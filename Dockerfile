@@ -7,13 +7,15 @@ RUN adduser build -D && addgroup build abuild
 RUN mkdir -p /var/cache/distfiles
 RUN chmod a+w /var/cache/distfiles
 
+COPY minidlna /minidlna
+
+RUN chown build.build /minidlna -R
+
 RUN adduser minidlna -D
 
 USER build
 
 RUN abuild-keygen -n -a
-
-COPY --chown=build minidlna /minidlna
 
 WORKDIR /minidlna
 
