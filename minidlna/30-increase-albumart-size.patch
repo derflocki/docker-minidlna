@@ -1,0 +1,48 @@
+diff --git a/minidlna/minidlna-1.2.1/albumart.c b/minidlna/minidlna-1.2.1/albumart.c
+index de026ec..53d9d39 100644
+--- a/albumart.c
++++ b/albumart.c
+@@ -39,6 +39,7 @@
+ #include "image_utils.h"
+ #include "log.h"
+ 
++#define ALBUM_ART_SIZE 512
+ static int
+ art_cache_exists(const char *orig_path, char **cache_file)
+ {
+@@ -69,13 +70,13 @@ save_resized_album_art(image_s *imsrc, const char *path)
+ 
+ 	if( imsrc->width > imsrc->height )
+ 	{
+-		dstw = 160;
+-		dsth = (imsrc->height<<8) / ((imsrc->width<<8)/160);
++		dstw = ALBUM_ART_SIZE;
++		dsth = (imsrc->height<<8) / ((imsrc->width<<8)/ALBUM_ART_SIZE);
+ 	}
+ 	else
+ 	{
+-		dstw = (imsrc->width<<8) / ((imsrc->height<<8)/160);
+-		dsth = 160;
++		dstw = (imsrc->width<<8) / ((imsrc->height<<8)/ALBUM_ART_SIZE);
++		dsth = ALBUM_ART_SIZE;
+ 	}
+ 	imdst = image_resize(imsrc, dstw, dsth);
+ 	if( !imdst )
+@@ -216,7 +217,7 @@ check_embedded_art(const char *path, uint8_t *image_data, int image_size)
+ 	width = imsrc->width;
+ 	height = imsrc->height;
+ 
+-	if( width > 160 || height > 160 )
++	if( width > ALBUM_ART_SIZE || height > ALBUM_ART_SIZE )
+ 	{
+ 		art_path = save_resized_album_art(imsrc, path);
+ 	}
+@@ -337,7 +338,7 @@ existing_file:
+ found_file:
+ 			width = imsrc->width;
+ 			height = imsrc->height;
+-			if( width > 160 || height > 160 )
++			if( width > ALBUM_ART_SIZE || height > ALBUM_ART_SIZE )
+ 				art_file = save_resized_album_art(imsrc, file);
+ 			else
+ 				art_file = strdup(file);

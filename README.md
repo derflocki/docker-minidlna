@@ -2,6 +2,11 @@
 
 This is minidlna on top of alpine linux.
 
+
+The package contains various modifications to the original alpine minidlna package:
+* buildt using --enable-netgear to disable extracting metadata form video files
+* patch allowing custom icons in minidlna.conf
+* increased albumart-size to 512px
 ## Usage
 
 ```
