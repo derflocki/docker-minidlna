@@ -46,3 +46,14 @@ index de026ec..53d9d39 100644
  				art_file = save_resized_album_art(imsrc, file);
  			else
  				art_file = strdup(file);
+--- a/image_utils.c
++++ b/image_utils.c
+@@ -49,7 +49,7 @@
+ # define SWAP16(w) (w)
+ #endif
+ 
+-#define JPEG_QUALITY  96
++#define JPEG_QUALITY  75
+ 
+ #define COL(red, green, blue) (((red) << 24) | ((green) << 16) | ((blue) << 8) | 0xFF)
+ #define COL_FULL(red, green, blue, alpha) (((red) << 24) | ((green) << 16) | ((blue) << 8) | (alpha))
