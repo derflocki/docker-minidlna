@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine as builder
 
 RUN apk update && apk add --no-cache alpine-sdk
 
@@ -21,11 +21,13 @@ WORKDIR /minidlna
 
 RUN abuild checksum
 
+RUN abuild deps
+
 RUN abuild -r
 
 FROM alpine
 
-COPY --from=0 /home/build/packages/x86_64/minidlna-1.2.1-r0.apk /minidlna.apk
+COPY --from=builder /home/build/packages/x86_64/minidlna-1.2.1-r0.apk /minidlna.apk
 
 RUN apk update && apk add --allow-untrusted /minidlna.apk
 
