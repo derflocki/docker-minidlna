@@ -30,7 +30,8 @@ source="minidlna-$pkgver.tar.gz
 	$pkgname.confd
 	10-minidlna-nfo.patch
 	20-minidlna-custom-icon.patch
-	30-increase-albumart-size.patch"
+	30-increase-albumart-size.patch
+	40-unescape-amp-39.patch"
 
 builddir="$srcdir/$pkgname-$pkgver"
 

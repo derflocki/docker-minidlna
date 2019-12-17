@@ -7,6 +7,7 @@ The package contains various modifications to the original alpine minidlna packa
 * buildt using --enable-netgear to disable extracting metadata form video files
 * patch allowing custom icons in minidlna.conf
 * increased albumart-size to 512px
+* unescape &#39; in Search queries to "'"
 ## Usage
 
 ```

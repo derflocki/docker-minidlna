@@ -5,13 +5,14 @@ RUN apk update && apk add --no-cache alpine-sdk
 RUN adduser build -D && addgroup build abuild
 
 RUN mkdir -p /var/cache/distfiles
+
 RUN chmod a+w /var/cache/distfiles
+
+RUN adduser minidlna -D
 
 COPY minidlna /minidlna
 
 RUN chown build.build /minidlna -R
-
-RUN adduser minidlna -D
 
 USER build
 

@@ -1,0 +1,41 @@
+diff --git a/upnpsoap.c b/upnpsoap.c
+index 76fdeae..7fb95dc 100644
+--- a/upnpsoap.c
++++ b/upnpsoap.c
+@@ -1491,6 +1491,12 @@ parse_search_criteria(const char *str, char *sep)
+ 					s += 6;
+ 					continue;
+ 				}
++				else if (strncmp(s, "&#39;", 5) == 0)
++				{
++					strcatf(&criteria, "'");
++					s += 5;
++					continue;
++				}
+ 				else
+ 					break;
+ 			case '"':
+@@ -1563,6 +1569,11 @@ parse_search_criteria(const char *str, char *sep)
+ 					strcatf(&criteria, "'");
+ 					s += 5;
+ 				}
++				else if (strncmp(s, "&#39;", 5) == 0)
++				{
++					strcatf(&criteria, "'");
++					s += 4;
++				}
+ 				else if (strncmp(s, "&lt;", 4) == 0)
+ 				{
+ 					strcatf(&criteria, "<");
+diff --git a/utils.c b/utils.c
+index fc21b7f..9062a3e 100644
+--- a/utils.c
++++ b/utils.c
+@@ -204,6 +204,7 @@ unescape_tag(const char *tag, int force_alloc)
+ 		esc_tag = modifyString(esc_tag, "&gt;", ">", 1);
+ 		esc_tag = modifyString(esc_tag, "&quot;", "\"", 1);
+ 		esc_tag = modifyString(esc_tag, "&apos;", "'", 1);
++		esc_tag = modifyString(esc_tag, "&#39;", "'", 1);
+ 	}
+ 	else if( force_alloc )
+ 		esc_tag = strdup(tag);
